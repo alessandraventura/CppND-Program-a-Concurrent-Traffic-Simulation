@@ -6,6 +6,7 @@
 #include <mutex>
 #include <vector>
 
+#include "TrafficLight.h"
 #include "TrafficObject.h"
 
 // forward declarations to avoid include cycle
@@ -58,7 +59,8 @@ class Intersection : public TrafficObject {
       _waitingVehicles;  // list of all vehicles and their associated promises
                          // waiting to enter the intersection
   bool _isBlocked;  // flag indicating wether the intersection is blocked by a
-                    // vehicle
+  // vehicle
+  TrafficLight _traffic_light;
 };
 
 #endif
