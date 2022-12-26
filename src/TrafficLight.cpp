@@ -14,7 +14,7 @@ T MessageQueue<T>::Receive() {
   // The received object should then be returned by the receive function.
 
   std::unique_lock<std::mutex> access_queue_lock(_mutex_msg_queue);
-  _condition_msg_queue.wait(access_queue_lock);
+  _condition_msg_queue.wait(access_queue_lock, [this] { return !_queue.empty(); });
   TrafficLightPhase current_phase(std::move(_queue.at(0)));
   return current_phase;
 }
