@@ -20,7 +20,13 @@ class Vehicle;
 template <class T>
 class MessageQueue {
  public:
+  void Send(T &&msg);
+  T Receive();
+
  private:
+  std::deque<T> _queue;
+  std::condition_variable _condition_msg_queue;
+  std::mutex _mutex_msg_queue;
 };
 
 // FP.1 : Define a class „TrafficLight“ which is a child class of TrafficObject.
@@ -55,6 +61,7 @@ class TrafficLight : public TrafficObject {
   // type TrafficLightPhase and use it within the infinite loop to push each
   // new TrafficLightPhase into it by calling send in conjunction with move
   // semantics.
+  MessageQueue<TrafficLightPhase> _traffic_light_msg_queue;
 
   std::condition_variable _condition;
   std::mutex _mutex;

@@ -5,26 +5,30 @@
 
 /* Implementation of class "MessageQueue" */
 
-/*
 template <typename T>
-T MessageQueue<T>::receive()
-{
-    // FP.5a : The method receive should use std::unique_lock<std::mutex> and
-_condition.wait()
-    // to wait for and receive new messages and pull them from the queue using
-move semantics.
-    // The received object should then be returned by the receive function.
+T MessageQueue<T>::Receive() {
+  // FP.5a : The method receive should use std::unique_lock<std::mutex> and
+  // _condition.wait()
+  // to wait for and receive new messages and pull them from the queue using
+  // move semantics.
+  // The received object should then be returned by the receive function.
+
+  std::unique_lock<std::mutex> access_queue_lock(_mutex_msg_queue);
+  _condition_msg_queue.wait(access_queue_lock);
+  TrafficLightPhase current_phase(std::move(_queue.at(0)));
+  return current_phase;
 }
 
 template <typename T>
-void MessageQueue<T>::send(T &&msg)
-{
-    // FP.4a : The method send should use the mechanisms
-std::lock_guard<std::mutex>
-    // as well as _condition.notify_one() to add a new message to the queue and
-afterwards send a notification.
+void MessageQueue<T>::Send(T &&msg) {
+  // FP.4a : The method send should use the mechanisms
+  // std::lock_guard<std::mutex>
+  // as well as _condition.notify_one() to add a new message to the queue and
+  // afterwards send a notification.
+  std::lock_guard<std::mutex> access_queue_lockguard(_mutex_msg_queue);
+  _queue.emplace_back(msg);
+  _condition_msg_queue.notify_one();
 }
-*/
 
 /* Implementation of class "TrafficLight" */
 
@@ -72,7 +76,6 @@ void TrafficLight::CycleThroughPhases() {
         _current_phase = TrafficLightPhase::green;
         break;
     }
-    // message_queue.send(std::move(_current_phase));  //TODO: after
-    // implementation of message queue
+    _traffic_light_msg_queue.Send(std::move(_current_phase));
   }
 }
