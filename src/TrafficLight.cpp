@@ -73,10 +73,12 @@ void TrafficLight::CycleThroughPhases() {
   // wait 1ms between two cycles.
 
   std::random_device duration;
-  std::uniform_int_distribution<int> dist(4, 6);
+  std::uniform_real_distribution<double> dist(4, 6);
 
   while (true) {
-    std::this_thread::sleep_for(std::chrono::seconds(dist(duration)));
+    int duration_in_milliseconds = 1000 * dist(duration);
+    std::this_thread::sleep_for(
+        std::chrono::milliseconds(duration_in_milliseconds));
     switch (_current_phase) {
       case TrafficLightPhase::green:
         _current_phase = TrafficLightPhase::red;
