@@ -14,7 +14,8 @@ T MessageQueue<T>::Receive() {
   // The received object should then be returned by the receive function.
 
   std::unique_lock<std::mutex> access_queue_lock(_mutex_msg_queue);
-  _condition_msg_queue.wait(access_queue_lock, [this] { return !_queue.empty(); });
+  _condition_msg_queue.wait(access_queue_lock,
+                            [this] { return !_queue.empty(); });
   TrafficLightPhase current_phase(std::move(_queue.at(0)));
   return current_phase;
 }
@@ -70,10 +71,11 @@ void TrafficLight::CycleThroughPhases() {
   // 6 seconds. Also, the while-loop should use std::this_thread::sleep_for to
   // wait 1ms between two cycles.
 
-  int duration = rand() % 3 + 4;
+  std::random_device duration;
+  std::uniform_int_distribution<int> dist(4, 6);
 
   while (true) {
-    std::this_thread::sleep_for(std::chrono::seconds(duration));
+    std::this_thread::sleep_for(std::chrono::seconds(dist(duration)));
     switch (_current_phase) {
       case TrafficLightPhase::green:
         _current_phase = TrafficLightPhase::red;
