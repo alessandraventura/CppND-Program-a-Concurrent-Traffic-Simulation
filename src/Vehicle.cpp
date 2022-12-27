@@ -56,14 +56,14 @@ void Vehicle::drive() {
       _posStreet += _speed * timeSinceLastUpdate / 1000;
 
       // compute completion rate of current street
-      double completion = _posStreet / _currStreet->getLength();
+      double completion = _posStreet / _currStreet->Length();
 
       // compute current pixel position on street based on driving direction
       std::shared_ptr<Intersection> i1, i2;
       i2 = _currDestination;
-      i1 = i2->getID() == _currStreet->getInIntersection()->getID()
-               ? _currStreet->getOutIntersection()
-               : _currStreet->getInIntersection();
+      i1 = i2->ID() == _currStreet->InIntersection()->ID()
+               ? _currStreet->OutIntersection()
+               : _currStreet->InIntersection();
 
       double x1, y1, x2, y2, xv, yv, dx, dy, l;
       i1->getPosition(x1, y1);
@@ -111,10 +111,9 @@ void Vehicle::drive() {
 
         // pick the one intersection at which the vehicle is currently not
         std::shared_ptr<Intersection> nextIntersection =
-            nextStreet->getInIntersection()->getID() ==
-                    _currDestination->getID()
-                ? nextStreet->getOutIntersection()
-                : nextStreet->getInIntersection();
+            nextStreet->InIntersection()->ID() == _currDestination->ID()
+                ? nextStreet->OutIntersection()
+                : nextStreet->InIntersection();
 
         // send signal to intersection that vehicle has left the intersection
         _currDestination->vehicleHasLeft(get_shared_this());

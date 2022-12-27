@@ -13,11 +13,11 @@ class Street : public TrafficObject,
  public:
   Street();
 
-  double getLength() { return _length; }
-  void setInIntersection(std::shared_ptr<Intersection> in);
-  void setOutIntersection(std::shared_ptr<Intersection> out);
-  std::shared_ptr<Intersection> getOutIntersection() { return _interOut; }
-  std::shared_ptr<Intersection> getInIntersection() { return _interIn; }
+  double Length() { return _length; }
+  void InIntersection(std::shared_ptr<Intersection> in);
+  void OutIntersection(std::shared_ptr<Intersection> out);
+  std::shared_ptr<Intersection> OutIntersection() { return _inter_out; }
+  std::shared_ptr<Intersection> InIntersection() { return _inter_in; }
 
   // typical behaviour methods
 
@@ -26,8 +26,8 @@ class Street : public TrafficObject,
 
  private:
   double _length;  // length of this street in m
-  std::shared_ptr<Intersection> _interIn,
-      _interOut;  // intersections from which a vehicle can enter (one-way
+  std::shared_ptr<Intersection> _inter_in,
+      _inter_out;  // intersections from which a vehicle can enter (one-way
                   // streets is always from 'in' to 'out')
 };
 

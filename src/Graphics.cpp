@@ -7,24 +7,24 @@
 
 #include "Intersection.h"
 
-void Graphics::simulate() {
-  this->loadBackgroundImg();
+void Graphics::Simulate() {
+  this->LoadBackgroundImg();
   while (true) {
     // sleep at every iteration to reduce CPU usage
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
     // update graphics
-    this->drawTrafficObjects();
+    this->DrawTrafficObjects();
   }
 }
 
-void Graphics::loadBackgroundImg() {
+void Graphics::LoadBackgroundImg() {
   // create window
-  _windowName = "Concurrency Traffic Simulation";
-  cv::namedWindow(_windowName, cv::WINDOW_NORMAL);
+  _window_name = "Concurrency Traffic Simulation";
+  cv::namedWindow(_window_name, cv::WINDOW_NORMAL);
 
   // load image and create copy to be used for semi-transparent overlay
-  cv::Mat background = cv::imread(_bgFilename);
+  cv::Mat background = cv::imread(_bg_filename);
   _images.push_back(background);  // first element is the original background
   _images.push_back(
       background.clone());  // second element will be the transparent overlay
@@ -33,13 +33,13 @@ void Graphics::loadBackgroundImg() {
           .clone());  // third element will be the result image for display
 }
 
-void Graphics::drawTrafficObjects() {
+void Graphics::DrawTrafficObjects() {
   // reset images
   _images.at(1) = _images.at(0).clone();
   _images.at(2) = _images.at(0).clone();
 
   // create overlay from all traffic objects
-  for (auto it : _trafficObjects) {
+  for (auto it : _traffic_objects) {
     double posx, posy;
     it->getPosition(posx, posy);
 
@@ -56,7 +56,7 @@ void Graphics::drawTrafficObjects() {
       cv::circle(_images.at(1), cv::Point2d(posx, posy), 25, trafficLightColor,
                  -1);
     } else if (it->getType() == ObjectType::objectVehicle) {
-      cv::RNG rng(it->getID());
+      cv::RNG rng(it->ID());
       int b = rng.uniform(0, 255);
       int g = rng.uniform(0, 255);
       int r = sqrt(255 * 255 - g * g -
@@ -74,7 +74,7 @@ void Graphics::drawTrafficObjects() {
   // a large space
   cv::Mat img;
   cv::resize(_images.at(2), img, cv::Size(1040, 720), 0, 0, 1);
-  cv::imshow(_windowName, img);
+  cv::imshow(_window_name, img);
 
   cv::waitKey(33);
 }

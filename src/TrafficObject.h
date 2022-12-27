@@ -17,13 +17,13 @@ class TrafficObject {
   TrafficObject();
   ~TrafficObject();
 
-  int getID() { return _id; }
+  int ID() { return _id; }
   void setPosition(double x, double y);
   void getPosition(double &x, double &y);
   ObjectType getType() { return _type; }
 
   // typical behaviour methods
-  virtual void simulate(){};
+  virtual void Simulate(){};
 
  protected:
   ObjectType _type;     // identifies the class type
@@ -35,7 +35,7 @@ class TrafficObject {
       _mtx;  // mutex shared by all traffic objects for protecting cout
 
  private:
-  static int _idCnt;  // global variable for counting object ids
+  static int _id_cnt;  // global variable for counting object ids
 };
 
 #endif

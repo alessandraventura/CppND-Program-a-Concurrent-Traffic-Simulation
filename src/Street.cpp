@@ -10,14 +10,14 @@ Street::Street() {
   _length = 1000.0;  // in m
 }
 
-void Street::setInIntersection(std::shared_ptr<Intersection> in) {
-  _interIn = in;
+void Street::InIntersection(std::shared_ptr<Intersection> in) {
+  _inter_in = in;
   in->addStreet(get_shared_this());  // add this street to list of streets
                                      // connected to the intersection
 }
 
-void Street::setOutIntersection(std::shared_ptr<Intersection> out) {
-  _interOut = out;
+void Street::OutIntersection(std::shared_ptr<Intersection> out) {
+  _inter_out = out;
   out->addStreet(get_shared_this());  // add this street to list of streets
                                       // connected to the intersection
 }

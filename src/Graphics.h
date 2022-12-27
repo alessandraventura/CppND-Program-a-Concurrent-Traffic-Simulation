@@ -9,24 +9,24 @@
 
 class Graphics {
  public:
-  void setBgFilename(std::string filename) { _bgFilename = filename; }
-  void setTrafficObjects(
+  void BgFilename(std::string filename) { _bg_filename = filename; }
+  void TrafficObjects(
       std::vector<std::shared_ptr<TrafficObject>> &trafficObjects) {
-    _trafficObjects = trafficObjects;
+    _traffic_objects = trafficObjects;
   };
 
   // typical behaviour methods
-  void simulate();
+  void Simulate();
 
  private:
   // typical behaviour methods
-  void loadBackgroundImg();
-  void drawTrafficObjects();
+  void LoadBackgroundImg();
+  void DrawTrafficObjects();
 
   // member variables
-  std::vector<std::shared_ptr<TrafficObject>> _trafficObjects;
-  std::string _bgFilename;
-  std::string _windowName;
+  std::vector<std::shared_ptr<TrafficObject>> _traffic_objects;
+  std::string _bg_filename;
+  std::string _window_name;
   std::vector<cv::Mat> _images;
 };
 

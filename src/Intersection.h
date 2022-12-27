@@ -16,11 +16,11 @@ class Vehicle;
 // auxiliary class to queue and dequeue waiting vehicles in a thread-safe manner
 class WaitingVehicles {
  public:
-  int getSize();
+  int Size();
 
   // typical behaviour methods
-  void pushBack(std::shared_ptr<Vehicle> vehicle, std::promise<void> &&promise);
-  void permitEntryToFirstInQueue();
+  void PushBack(std::shared_ptr<Vehicle> vehicle, std::promise<void> &&promise);
+  void PermitEntryToFirstInQueue();
 
  private:
   std::vector<std::shared_ptr<Vehicle>>
