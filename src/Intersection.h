@@ -16,7 +16,6 @@ class Vehicle;
 // auxiliary class to queue and dequeue waiting vehicles in a thread-safe manner
 class WaitingVehicles {
  public:
-  // getters / setters
   int getSize();
 
   // typical behaviour methods
@@ -32,10 +31,8 @@ class WaitingVehicles {
 
 class Intersection : public TrafficObject {
  public:
-  // constructor / desctructor
   Intersection();
 
-  // getters / setters
   void setIsBlocked(bool isBlocked);
 
   // typical behaviour methods

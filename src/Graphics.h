@@ -9,9 +9,6 @@
 
 class Graphics {
  public:
-  // constructor / desctructor
-
-  // getters / setters
   void setBgFilename(std::string filename) { _bgFilename = filename; }
   void setTrafficObjects(
       std::vector<std::shared_ptr<TrafficObject>> &trafficObjects) {

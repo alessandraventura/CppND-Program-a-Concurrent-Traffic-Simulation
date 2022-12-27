@@ -14,11 +14,9 @@ enum ObjectType {
 
 class TrafficObject {
  public:
-  // constructor / desctructor
   TrafficObject();
   ~TrafficObject();
 
-  // getter and setter
   int getID() { return _id; }
   void setPosition(double x, double y);
   void getPosition(double &x, double &y);

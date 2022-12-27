@@ -11,10 +11,8 @@ class Intersection;
 class Street : public TrafficObject,
                public std::enable_shared_from_this<Street> {
  public:
-  // constructor / desctructor
   Street();
 
-  // getters / setters
   double getLength() { return _length; }
   void setInIntersection(std::shared_ptr<Intersection> in);
   void setOutIntersection(std::shared_ptr<Intersection> out);

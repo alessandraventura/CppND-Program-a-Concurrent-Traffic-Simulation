@@ -88,9 +88,6 @@ void Intersection::addVehicleToQueue(std::shared_ptr<Vehicle> vehicle) {
   std::cout << "Intersection #" << _id << ": Vehicle #" << vehicle->getID()
             << " is granted entry." << std::endl;
 
-  // FP.6b : use the methods TrafficLight::getCurrentPhase and
-  // TrafficLight::waitForGreen to block the execution until the traffic light
-  // turns green.
   if (!trafficLightIsGreen()) {
     _traffic_light.WaitForGreen();
   }
@@ -99,24 +96,17 @@ void Intersection::addVehicleToQueue(std::shared_ptr<Vehicle> vehicle) {
 }
 
 void Intersection::vehicleHasLeft(std::shared_ptr<Vehicle> vehicle) {
-  // std::cout << "Intersection #" << _id << ": Vehicle #" << vehicle->getID()
-  // << " has left." << std::endl;
-
   // unblock queue processing
   this->setIsBlocked(false);
 }
 
 void Intersection::setIsBlocked(bool isBlocked) {
   _isBlocked = isBlocked;
-  // std::cout << "Intersection #" << _id << " isBlocked=" << isBlocked <<
-  // std::endl;
 }
 
 // virtual function which is executed in a thread
 void Intersection::simulate()  // using threads + promises/futures + exceptions
 {
-  // FP.6a : In Intersection.h, add a private member _trafficLight of type
-  // TrafficLight. At this position, start the simulation of _trafficLight.
   _traffic_light.Simulate();
 
   // launch vehicle queue processing in a thread
@@ -124,10 +114,6 @@ void Intersection::simulate()  // using threads + promises/futures + exceptions
 }
 
 void Intersection::processVehicleQueue() {
-  // print id of the current thread
-  // std::cout << "Intersection #" << _id << "::processVehicleQueue: thread id =
-  // " << std::this_thread::get_id() << std::endl;
-
   // continuously process the vehicle queue
   while (true) {
     // sleep at every iteration to reduce CPU usage
