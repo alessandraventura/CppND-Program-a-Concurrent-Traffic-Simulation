@@ -62,9 +62,6 @@ class TrafficLight : public TrafficObject {
   // new TrafficLightPhase into it by calling send in conjunction with move
   // semantics.
   MessageQueue<TrafficLightPhase> _traffic_light_msg_queue;
-
-  std::condition_variable _condition;
-  std::mutex _mutex;
 };
 
 #endif
