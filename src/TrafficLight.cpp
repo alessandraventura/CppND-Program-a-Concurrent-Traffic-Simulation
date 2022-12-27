@@ -27,6 +27,7 @@ void MessageQueue<T>::Send(T &&msg) {
   // as well as _condition.notify_one() to add a new message to the queue and
   // afterwards send a notification.
   std::lock_guard<std::mutex> access_queue_lockguard(_mutex_msg_queue);
+  _queue.clear();
   _queue.emplace_back(msg);
   _condition_msg_queue.notify_one();
 }
